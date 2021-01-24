@@ -1,7 +1,8 @@
 import React from 'react';
 import {Card, Container, Icon, MenuItem, Select, TextField, Typography} from "@material-ui/core";
-import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
+import Button from "@material-ui/core/Button";
+import SaveIcon from '@material-ui/icons/Save';
+import ImageIcon from '@material-ui/icons/Image';
 
 export const Home = () => {
     const [store, setStore] = React.useState('castro');
@@ -9,19 +10,14 @@ export const Home = () => {
         setStore(event.target.value);
     };
     return (
-        <Container maxWidth={"sm"}>
-            <Card variant={"outlined"}>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <DatePicker
-                        disableFuture
-                        disabled
-                        openTo="year"
-                        format="dd/MM/yyyy"
-                        label="Data Report"
-                        views={["year", "month", "date"]}
-                        value={new Date()}
-                    />
-                </MuiPickersUtilsProvider>
+        <Container maxWidth={"sm"} style={{marginTop: "5%"}}>
+            <Card variant={"outlined"} square={true}>
+                <div style={{display: "flex", justifyContent: "space-between", marginBottom: "2%"}}>
+                    <Typography variant={"h4"}>{new Date().toLocaleDateString()}</Typography>
+                    <Button variant={"contained"} color={"primary"}>
+                        <SaveIcon/>&nbsp;SALVA REPORT
+                    </Button>
+                </div>
                 <Select id="pompa-benzina" variant={"outlined"} fullWidth={true} value={store} onChange={handleChange}>
                     <MenuItem value={"castro"}><EniIcon text={"Castro"}/></MenuItem>
                     <MenuItem value={"patrica"}><EniIcon text={"Patrica"}/></MenuItem>
@@ -29,14 +25,22 @@ export const Home = () => {
                     <MenuItem value={"terracina"}><EniIcon text={"Terracina"}/></MenuItem>
                     <MenuItem value={"prossedi"}><Q8Icon text={"Prossedi"}/></MenuItem>
                 </Select>
-                <form style={{width: 200, justifyItems: "center"}}
-                      noValidate autoComplete="off">
-                    <TextField id="mastercard" label="MaterCard" type="number" variant="outlined" inputMode={"numeric"}/>
-                    <TextField id="visa" label="Visa" type="number" variant="outlined"/>
-                    <TextField id="amex" label="Amex" type="number" variant="outlined"/>
-                    <TextField id="maestro" label="Maestro" type="number" variant="outlined"/>
-                    <TextField id="pagobancomat" label="PagoBancomat" type="number" variant="outlined"/>
-                </form>
+                <div style={{display: "flex"}}>
+                    <form style={{width: "50%", justifyItems: "center"}}
+                          noValidate autoComplete="off">
+                        <TextField id="mastercard" label="MaterCard" type="number" variant="outlined"
+                                   inputMode={"numeric"} fullWidth/>
+                        <TextField id="visa" label="Visa" type="number" variant="outlined"
+                                   inputMode={"numeric"} fullWidth/>
+                        <TextField id="amex" label="Amex" type="number" variant="outlined"
+                                   inputMode={"numeric"} fullWidth/>
+                        <TextField id="maestro" label="Maestro" type="number" variant="outlined"
+                                   inputMode={"numeric"} fullWidth/>
+                        <TextField id="pagobancomat" label="PagoBancomat" type="number" variant="outlined"
+                                   inputMode={"numeric"} fullWidth/>
+                    </form>
+                    <Button style={{width: "50%"}} variant={"outlined"}><ImageIcon/>Carica Scontrino</Button>
+                </div>
             </Card>
         </Container>
     )
